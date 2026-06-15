@@ -1,0 +1,46 @@
+Given a sorted and rotated array A of N distinct elements which is rotated at some point, and
+given an element key. The task is to find the index of the given element key in the array A.
+Example 1:
+Input:
+N = 9
+A[] = {5, 6, 7, 8, 9, 10, 1, 2, 3}
+key = 10
+Output:
+5
+Explanation: 10 is found at index 5.
+Example 2:
+Input:
+N = 4
+A[] = {3, 5, 1, 2}
+key = 6
+Output:
+-1
+Explanation: There is no element that has value 6.
+
+
+n=int(input())
+num=[]
+for i in range(0,n):
+    ele=int(input())
+    num.append(ele)
+key=int(input())
+flag=0
+low=0
+high=n-1
+while low  <= high:
+    mid=(low +high)//2 
+    if num[mid] == key:
+        ind=mid
+        flag=1
+        break
+    elif num[mid] < key:
+        low=mid+1
+    else:
+        high=mid-1
+
+if(flag): 
+    print(ind)
+else:
+    print("-1")  
+    
+        
