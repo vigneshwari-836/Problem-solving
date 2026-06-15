@@ -1,0 +1,40 @@
+class Solution {
+    public static int[] twoSum(int[] nums, int target) {
+        int[] result=new int[2];
+        int i,j;
+        int n=nums.length;
+        for(i=0;i<n;i++)
+        {
+            for(j=i+1;j<n;j++)
+            {
+                if(target==nums[i]+nums[j] )
+                {
+                    result[0]=i;
+                    result[1]=j;
+                }
+            }
+        }
+        return result;
+        
+    }
+    public static void main(String[] args){
+        Scanner in=new Scanner(System.in);
+        System.out.println("Enter how numbers:");
+        int n=in.nextInt();
+        int i=0;
+        int[] nums=new int[n];
+        for(i=0;i<n;i++)
+        {
+            int ele=in.nextInt();
+            nums[i]=ele;
+        }
+        System.out.println("Enter target value");
+        int target=in.nextInt();
+        int[] result=new int[2];
+        result=twoSum(nums,target);
+        for(i=0;i<2;i++)
+        {
+            System.out.println(result[i]);
+        }
+    }
+}
