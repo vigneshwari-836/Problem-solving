@@ -1,0 +1,15 @@
+s=input()
+
+left=0
+right=0
+window=[]
+input=list(s)
+l=len(s)
+
+for i in range(l):
+    if input[i] not in window:
+        right +=1
+    else:
+        left+=1
+        right+=1
+print(right-left)
