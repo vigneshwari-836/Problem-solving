@@ -1,0 +1,66 @@
+Given a matrix mat[][] of size N x M, where every row and column is sorted in increasing
+order, and a number X is given. The task is to find whether element X is present in the matrix
+or not.
+Example 1:
+Input:
+N = 3, M = 3
+mat[][] = 3 30 38
+ 44 52 54
+ 57 60 69
+X = 62
+Output
+0
+Explanation:
+62 is not present in the
+matrix, so output is 0
+Example 2:
+Input:
+N = 1, M = 6
+mat[][] = 18 21 27 38 55 67
+X = 55
+Output:
+1
+Explanation:
+55 is present in the
+matrix at 5th cell.
+Expected Time Complexity: O(N+M).
+Expected Auxiliary Space: O(1).
+
+n=int(input())
+m=int(input())
+mat=[]
+for i in range(n):
+    row=[]
+    for j in range(m):
+        ele=int(input())
+        row.append(ele)
+    mat.append(row)
+    
+x=int(input())
+flag=0
+
+# searching algorithm in sorted matrix
+row=0
+col=m-1
+while row < n and col >=0:
+    curr=mat[row][col]
+    
+    if x== curr:
+        flag=1
+        break
+    elif x < curr:
+        col -=1
+    else:
+        row +=1
+    
+#normal search algorithm in matrix
+"""flag=0
+for i in mat:
+    for j in i:
+        if x==j:
+            flag=1
+"""    
+if (flag):
+    print("1")
+else:
+    print("0") 
