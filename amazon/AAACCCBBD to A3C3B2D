@@ -1,0 +1,11 @@
+Write a function which compress string AAACCCBBD to A3C3B2D
+and other function to generate from the compressed.
+
+from collections import Counter 
+
+sr=input()
+s=list(sr)
+
+count=Counter(s)
+res="".join(f"{l}{d}" for l,d in count.items())
+print(res)
