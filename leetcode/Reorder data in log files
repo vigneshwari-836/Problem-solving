@@ -1,0 +1,10 @@
+class Solution:
+    def reorderLogFiles(self, logs: List[str]) -> List[str]:
+        def get_sort_key(log:str):
+            id,con=log.split(" ",1)
+
+            if con[0].isdigit():
+                return(1,)
+            else:
+                return(0,con,id)
+        return sorted(logs,key=get_sort_key)
