@@ -1,0 +1,33 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+def checkLeavesSameLevel(root):
+    leaf_level = [-1]  # Stores level of first leaf
+
+    def dfs(node, level):
+        if node is None:
+            return True
+
+        # Leaf node
+        if node.left is None and node.right is None:
+            if leaf_level[0] == -1:
+                leaf_level[0] = level
+                return True
+
+            return level == leaf_level[0]
+
+        return dfs(node.left, level + 1) and dfs(node.right, level + 1)
+
+    return 1 if dfs(root, 0) else 0
+
+
+# Example 1
+root1 = Node(1)
+root1.left = Node(2)
+root1.right = Node(3)
+
+print(checkLeavesSameLevel(root1))
