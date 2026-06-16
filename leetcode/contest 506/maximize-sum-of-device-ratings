@@ -1,0 +1,37 @@
+class Solution:
+    def maxRatings(self, units: list[list[int]]) -> int:
+        if not units or not units[0]:
+            return 0
+            
+        m = len(units)
+        n = len(units[0])
+        
+        # Calculate the baseline sum if we perform zero transfers
+        baseline_sum = sum(min(row) for row in units)
+        
+        # If each device has only 1 unit, transferring leaves a row empty (rating 0)
+        if n == 1:
+            return baseline_sum
+            
+        total_second_mins = 0
+        global_first_min = float('inf')
+        min_second_min = float('inf')
+        
+        for row in units:
+            sorted_row = sorted(row)
+            first_min = sorted_row[0]
+            second_min = sorted_row[1]
+            
+            # Track values globally
+            if first_min < global_first_min:
+                global_first_min = first_min
+                
+            if second_min < min_second_min:
+                min_second_min = second_min
+                
+            total_second_mins += second_min
+            
+        # The correct mathematical transfer equation
+        transfer_sum = total_second_mins - min_second_min + global_first_min
+        
+        return max(baseline_sum, transfer_sum)
