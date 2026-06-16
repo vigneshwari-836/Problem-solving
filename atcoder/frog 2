@@ -1,0 +1,33 @@
+import sys
+
+def solve():
+    # Read all input at once for maximum speed
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+        
+    n = int(input_data[0])
+    k = int(input_data[1])
+    h = [int(x) for x in input_data[2:]]
+
+    if n == 1:
+        print(0)
+        return
+    val = [0] * n
+    
+    for i in range(1, n):
+     
+        min_cost = float('inf')
+        start_j = max(0, i - k)
+        
+        for prev in range(start_j, i):
+            cost = val[prev] + abs(h[i] - h[prev])
+            if cost < min_cost:
+                min_cost = cost
+                
+        val[i] = min_cost
+
+    print(val[n-1])
+
+if __name__ == '__main__':
+    solve()
