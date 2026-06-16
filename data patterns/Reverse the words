@@ -1,0 +1,6 @@
+sentence = "have a nice day"
+
+words = sentence.split()
+reversed_sentence = " ".join(words[::-1])
+
+print(reversed_sentence)
