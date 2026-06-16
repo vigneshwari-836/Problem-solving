@@ -1,0 +1,26 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+def isBST(root, min_val=float('-inf'), max_val=float('inf')):
+    if root is None:
+        return True
+
+    # Check BST property
+    if root.data <= min_val or root.data >= max_val:
+        return False
+
+    # Check left and right subtrees
+    return (isBST(root.left, min_val, root.data) and
+            isBST(root.right, root.data, max_val))
+
+
+# Example 1
+root1 = Node(2)
+root1.left = Node(1)
+root1.right = Node(3)
+
+print(1 if isBST(root1) else 0)
