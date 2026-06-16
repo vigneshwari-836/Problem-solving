@@ -1,0 +1,32 @@
+n=int(input())
+m=int(input())
+
+print("Enter shari weights:")
+shari=[]
+neta=[]
+
+for i in range(n):
+    val=int(input())
+    shari.append(val)
+
+print("Enter neta weights: ")
+for i in range(m):
+    val=int(input())
+    neta.append(val)
+    
+shari.sort()
+neta.sort()
+i=0
+j=0
+sushi=0
+while i<n and j<m:
+    if neta[j] <= (2 * shari[i]):
+        sushi +=1
+        i +=1
+        j +=1
+    else:
+        i+=1
+
+print (f"sushi count {sushi} ")
+    
+    
