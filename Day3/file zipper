@@ -1,0 +1,72 @@
+
+def rle_compress(data: str) -> str:
+   
+    if not data:
+        return ""
+
+    compressed_pieces = []
+    current_char = data[0]
+    count = 1
+
+    # Scan sequentially through the data string
+    for char in data[1:]:
+        if char == current_char:
+            count += 1
+        else:
+            # Store the finished run and reset for the new character
+            compressed_pieces.append(f"{current_char}{count}")
+            current_char = char
+            count = 1
+            
+    # Don't forget to append the final character group
+    compressed_pieces.append(f"{current_char}{count}")
+    
+    return "".join(compressed_pieces)
+
+
+def rle_decompress(compressed_data: str) -> str:
+    """
+    Decompresses an RLE string back to its original form.
+    Example: 'A5B3C2' -> 'AAAAABBBCC'
+    """
+    if not compressed_data:
+        return ""
+
+    decompressed_pieces = []
+    i = 0
+    
+    while i < len(compressed_data):
+        char = compressed_data[i]
+        i += 1
+        
+        # Accumulate the digit characters to handle multi-digit counts (e.g., A12)
+        count_str = ""
+        while i < len(compressed_data) and compressed_data[i].isdigit():
+            count_str += compressed_data[i]
+            i += 1
+            
+        count = int(count_str)
+        # Replicate the character and save it
+        decompressed_pieces.append(char * count)
+        
+    return "".join(decompressed_pieces)
+
+
+# --- Test Demonstration ---
+if __name__ == "__main__":
+    # Sample highly repetitive file data
+    original_data = "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"
+    print(f"Original Data:   {original_data}")
+    print(f"Original Size:   {len(original_data)} characters\n")
+
+    # Run the compression phase
+    compressed = rle_compress(original_data)
+    print(f"Compressed Data: {compressed}")
+    print(f"Compressed Size: {len(compressed)} characters\n")
+
+    # Run the decompression phase
+    decompressed = rle_decompress(compressed)
+    print(f"Dedecompressed:  {decompressed}")
+    
+    # Validation check
+    print(f"Success Match:   {original_data == decompressed}")
