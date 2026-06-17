@@ -1,0 +1,136 @@
+"""Problem DescriptionThe task is to determine if a shelf, represented by an array of \(n\) goods, 
+can be arranged so that each type of good forms a single contiguous block, using at most one swap.
+A shelf is "correctly arranged" if, for any two positions \(i < j\) with the same item type, 
+all items between them are also of that type.
+
+Input/Output
+
+Input: 
+\(t\) test cases, each with \(n\) (\(2 \le n \le 2 \cdot 10^5\)) representing the number of goods, 
+followed by the types \(a_{i}\) (\(1 \le a_i \le 10^9\)). Total \(n\) across cases \(\le 2 \cdot 10^5\).
+Output: 
+For each case, output "YES" if the condition can be met, otherwise "NO".
+
+Sample Test Cases
+1 2 2 1 -> YES
+1 2 3 -> YES
+1 2 1 3 1 4 1 -> NO
+2 1 2 1 2 1 -> NO
+1 2 1 2 1 -> YES
+"""
+
+import sys
+
+
+def solve():
+    # Read input array
+    # input() reads the line, split() breaks it into numbers, map(int, ...) converts to integers
+    n = int(sys.stdin.readline().strip())
+    a = list(map(int, sys.stdin.readline().strip().split()))
+    
+    # Step 1: Compress the array into distinct sequential blocks
+    # e.g., [1, 1, 2, 2, 2, 1] becomes blocks = [1, 2, 1]
+    blocks = []
+    for num in a:
+        if not blocks or blocks[-1] != num:
+            blocks.append(num)
+            
+    # Step 2: Count how many distinct fragments (blocks) each number has
+    # e.g., for blocks, fragment_counts = {1: 2, 2: 1}
+    fragment_counts = {}
+    for num in blocks:
+        fragment_counts[num] = fragment_counts.get(num, 0) + 1
+        
+    # Step 3: Identify how many numbers are "broken" (have more than 1 block)
+    # broken_elements maps: number -> how many blocks it has
+    broken_elements = {num: count for num, count in fragment_counts.items() if count > 1}
+    b = len(broken_elements)
+    
+    # ----------------------------------------------------
+    # CASE ANALYSIS
+    # ----------------------------------------------------
+    
+    # Case 0: No elements are broken. The array is already perfectly grouped!
+    if b == 0:
+        print("YES")
+        return
+
+    # Case > 2: More than 2 elements are broken. Impossible to fix with 1 swap.
+    if b > 2:
+        print("NO")
+        return
+
+    # High-level structural check: 
+    # If any element has more than 3 blocks, 1 swap can never bridge all the gaps.
+    for num, count in broken_elements.items():
+        if count > 3:
+            print("NO")
+            return
+            
+    # Case 2 Check: If exactly 2 elements are broken, both MUST have exactly 2 blocks.
+    if b == 2:
+        for num, count in broken_elements.items():
+            if count != 2:
+                print("NO")
+                return
+
+    # ----------------------------------------------------
+    # FINAL VERIFICATION: BRUTE FORCE RELEVANT BOUNDARIES
+    # ----------------------------------------------------
+    # To be 100% accurate, we collect the indexes of the broken components 
+    # and simulate swaps at those specific boundaries to see if a fix works.
+    
+    def is_correct(arr):
+        """Helper to verify if an array has all identical elements grouped together"""
+        seen = set()
+        prev = None
+        for x in arr:
+            if x != prev:
+                if x in seen:
+                    return False
+                seen.add(x)
+                prev = x
+        return True
+
+    # Find the positions of the broken elements in the original array 'a'
+    candidate_indices = set()
+    for i, num in enumerate(a):
+        if num in broken_elements:
+            candidate_indices.add(i)
+            # Also include immediate neighbors to test shifting/boundary swaps
+            if i > 0: candidate_indices.add(i - 1)
+            if i < n - 1: candidate_indices.add(i + 1)
+            
+    candidate_list = list(candidate_indices)
+    
+    # Try swapping pairs of candidate indices
+    # Since candidate_list is very small (local to the breakages), this is extremely fast.
+    for i in range(len(candidate_list)):
+        for j in range(i + 1, len(candidate_list)):
+            idx1, idx2 = candidate_list[i], candidate_list[j]
+            
+            # Simulate the swap
+            a[idx1], a[idx2] = a[idx2], a[idx1]
+            
+            # Check if this swap fixed the array
+            if is_correct(a):
+                print("YES")
+                return
+                
+            # Backtrack (swap back) if it didn't work
+            a[idx1], a[idx2] = a[idx2], a[idx1]
+
+    # If no swap combinations worked, output NO
+    print("NO")
+
+def main():
+    # Read the number of test cases
+    try:
+        t = int(sys.stdin.readline().strip())
+        for _ in range(t):
+            solve()
+    except Exception:
+        pass
+
+if __name__ == '__main__':
+    main()
