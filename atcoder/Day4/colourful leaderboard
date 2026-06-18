@@ -1,0 +1,42 @@
+import sys
+
+n = int(sys.stdin.readline())
+a=list(map(int,sys.stdin.readline().split()))
+
+val=[0]*8
+m=0
+for i in range(n):
+    if a[i]>=1 and a[i]<=399:
+        if val[0] == 0:
+            val[0]=1
+    elif a[i] >=400 and a[i] <=799:
+        if val[1] == 0:
+            val[1]=1
+    elif a[i] >=800 and a[i] <=1199:
+        if val[2]==0:
+            val[2]=1
+    elif a[i] >=1200 and a[i]<=1599:
+        if val[3]==0:
+            val[3]=1
+    elif a[i] >=1600 and a[i] <=1999:
+        if val[4]==0:
+            val[4]=1
+    elif a[i] >=2000 and a[i] <=2399:
+        if val[5]==0:
+            val[5]=1
+    elif a[i] >=2400 and a[i] <=2799:
+        if val[6]==0:
+            val[6]=1
+    elif a[i] >=2800 and a[i] <=3199:
+        if val[7]==0:
+            val[7]=1
+    elif a[i]>=3200:
+        m+=1
+res=sum(val)
+if res==0:
+    min_ans=1
+    max_ans=m
+else:
+    min_ans=res
+    max_ans=res
+print(res,res+m )
