@@ -1,0 +1,9 @@
+import sys
+
+n=input()
+
+num=int(n.replace(" ",""))
+if num%4==0:
+    print("YES")
+else:
+    print("NO")
