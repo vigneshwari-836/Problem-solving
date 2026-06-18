@@ -1,0 +1,29 @@
+s = input()
+
+# Reverse the input string
+reversed_s = s[::-1]
+
+# Reverse the allowable tokens
+val = ["dreamer", "dream", "eraser", "erase"]
+reversed_val = [word[::-1] for word in val]
+
+# Continuously strip matching prefixes from the front of the reversed string
+matched_all = True
+while len(reversed_s) > 0:
+    found_match = False
+    for token in reversed_val:
+        if reversed_s.startswith(token):
+            # Remove the token from the front
+            reversed_s = reversed_s[len(token):]
+            found_match = True
+            break # Break the for-loop to restart from the first token rule
+            
+    # If none of the 4 tokens match the start of our remaining string, it's impossible
+    if not found_match:
+        matched_all = False
+        break
+
+if matched_all:
+    print("YES")
+else:
+    print("NO")
