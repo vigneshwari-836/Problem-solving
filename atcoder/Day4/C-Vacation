@@ -1,0 +1,35 @@
+import sys
+
+def solve():
+    # Read all input numbers rapidly
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+        
+    n = int(input_data[0])
+    
+    # dp tracks the max happiness ending in [Activity A, Activity B, Activity C]
+    # Initialize for Day 0 with zero happiness
+    dp = [0, 0, 0]
+    
+    idx = 1
+    for _ in range(n):
+        # Current day's happiness scores
+        a = int(input_data[idx])
+        b = int(input_data[idx+1])
+        c = int(input_data[idx+2])
+        idx += 3
+        
+        # Calculate new maximums based on yesterday's valid choices
+        new_a = a + max(dp[1], dp[2])
+        new_b = b + max(dp[0], dp[2])
+        new_c = c + max(dp[0], dp[1])
+        
+        # Update our active DP state for the next iteration
+        dp = [new_a, new_b, new_c]
+        
+    # The answer is the best choice on the final day
+    print(max(dp))
+
+if __name__ == '__main__':
+    solve()
