@@ -1,0 +1,45 @@
+#codechef
+import sys
+
+def solve():
+    # Read all lines from standard input rapidly
+    input_data = sys.stdin.read().splitlines()
+    if not input_data:
+        return
+
+    t = int(input_data[0].strip())
+    line_idx = 1
+    
+    for case_num in range(t):
+        if line_idx >= len(input_data):
+            break
+            
+        n = int(input_data[line_idx].strip())
+        line_idx += 1
+        
+        turns = []
+        roads = []
+        
+        # Parse the original directions
+        for _ in range(n):
+            instruction = input_data[line_idx].strip()
+            line_idx += 1
+            action, road = instruction.split(" on ", 1)
+            turns.append(action)
+            roads.append(road)
+            
+        # 1. Start on the last road
+        print(f"Begin on {roads[-1]}")
+        
+        # 2. Iterate backwards to map the opposite turns to preceding roads
+        for i in range(n - 1, 0, -1):
+            turn = turns[i]
+            opposite_turn = "Right" if turn == "Left" else "Left"
+            print(f"{opposite_turn} on {roads[i-1]}")
+            
+        # FIX: Print blank line ONLY if this is NOT the last test case
+        if case_num < t - 1:
+            print()
+
+if __name__ == '__main__':
+    solve()
