@@ -1,0 +1,30 @@
+import sys
+
+def get_prefix_xor(n):
+
+    if n < 0:
+        return 0
+    
+    remainder = n & 3
+    if remainder == 0:
+        return n
+    elif remainder == 1:
+        return 1
+    elif remainder == 2:
+        return n + 1
+    else:  # remainder == 3
+        return 0
+
+def solve():
+    # Read A and B from standard input
+    input_data =list(map(int,sys.stdin.read().split()))
+    
+    a = int(input_data[0])
+    b = int(input_data[1])
+    
+    # f(A, B) = g(B) ^ g(A - 1)
+    ans = get_prefix_xor(b) ^ get_prefix_xor(a - 1)
+    print(ans)
+
+if __name__ == '__main__':
+    solve()
