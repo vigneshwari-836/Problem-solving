@@ -1,0 +1,9 @@
+from collections import Counter
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        counts=Counter(nums)
+        r1=[num for num,freq in counts.items() if freq==1]
+       
+
+        return r1[0]
+        
