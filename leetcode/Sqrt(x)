@@ -1,0 +1,16 @@
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        i=2
+        n=0
+        if x==0:
+            return 0
+        while True:
+            val=(1/2)*(i+(x/i))
+            if i==val:
+                break
+            else:
+                i=val
+         
+        return floor(i)
+
+        
