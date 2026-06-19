@@ -1,0 +1,12 @@
+import   re
+class Solution(object):
+    def defangIPaddr(self, address):
+        """
+        :type address: str
+        :rtype: str
+        """
+
+        s=re.sub(r"[.]","[.]",address)
+
+        return s
+        
