@@ -1,0 +1,17 @@
+import re
+from collections import Counter
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        s=s.lower()
+       
+        text = re.sub(r"[^a-z0-9]", "", s)
+        t="".join(text)
+        res=str(t[::-1])
+        l=len(res)
+        for i in range(l):
+            if res[i]!=t[i]:
+                return False
+        return True
+
+
+        
