@@ -1,0 +1,104 @@
+class Node:
+   def __init__(self,data):
+      self.data=data
+      self.next=None
+
+class Linkedlist:
+   def __init__(self):
+      self.head=None
+
+   def print_list(self):
+      curr=my_list.head
+      while curr is not None:
+         print(curr.data, end="->")
+         curr=curr.next
+      print("None")
+
+my_list=Linkedlist()
+n=int(input("Enter no of elements:"))
+val=[1]*n
+print("Enter elements:")
+for i in range(n):
+   v=int(input())
+   val[i]=Node(v)
+my_list.head=val[0]
+for i in range(0,n-1):
+   val[i].next=val[i+1]
+
+my_list.print_list()
+
+#insert at first
+print("\n*****Insert at first*****")
+ele=int(input("Enter element: "))
+new_node=Node(ele)
+new_node.next=my_list.head
+my_list.head=new_node
+
+my_list.print_list()
+
+
+#insert at last
+print("\n******Insert at end******")
+ele=int(input("Enter element: "))
+new_node_last=Node(ele)
+curr=my_list.head
+while curr.next is not None:
+    curr=curr.next
+curr.next=new_node_last
+
+my_list.print_list()
+
+#insert at middle
+print("\n***Insert at the middle***")
+c=1
+curr=my_list.head
+while curr is not None:
+    curr=curr.next
+    c+=1
+
+mid=int(c/2)
+ele=int(input("Enter a element: "))
+pos=int(input("Enter a position :"))
+new_node_mid=Node(ele)
+if pos==0:
+    new_node_mid.next=my_list.head
+    my_list.head=new_node_mid
+else:
+    c=0
+    curr=my_list.head
+    while curr is not None and c < pos-1:
+        curr=curr.next
+        c+=1
+    if curr is None:
+        print("List out of bounds")
+    else:
+        new_node_mid.next=curr.next
+        curr.next=new_node_mid
+        
+my_list.print_list()
+            
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
