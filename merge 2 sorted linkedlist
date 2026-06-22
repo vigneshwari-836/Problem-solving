@@ -1,0 +1,70 @@
+class Node:
+   def __init__(self, data):
+      self.data = data
+      self.next = None
+
+class Linkedlist:
+   def __init__(self):
+      self.head = None
+
+   def print_list(self):
+      curr = self.head 
+      while curr is not None:
+         print(curr.data, end=" -> ")
+         curr = curr.next
+      print("None")
+
+
+def build_list(list_name):
+   n = int(input(f"Enter no of elements for {list_name}: "))
+   if n == 0:
+      return Linkedlist()
+      
+   val = [1] * n
+   print(f"Enter elements for {list_name}:")
+   for i in range(n):
+      v = int(input())
+      val[i] = Node(v)
+      
+   my_list = Linkedlist()
+   my_list.head = val[0]
+   for i in range(0, n - 1):
+      val[i].next = val[i + 1]
+   return my_list
+
+
+list1 = build_list("List 1")
+list2 = build_list("List 2")
+
+print("\nOriginal Lists:")
+list1.print_list()
+list2.print_list()
+
+head1 = list1.head
+head2 = list2.head
+
+
+dummy = Node(0) 
+curr = dummy
+
+
+while head1 is not None and head2 is not None:
+    if head1.data <= head2.data:
+        curr.next = head1
+        head1 = head1.next
+    else:
+        curr.next = head2
+        head2 = head2.next 
+    curr = curr.next  
+
+if head1 is not None:
+    curr.next = head1
+else:
+    curr.next = head2
+
+
+merged_list = Linkedlist()
+merged_list.head = dummy.next 
+
+print("\nMerged Sorted List:")
+merged_list.print_list() 
