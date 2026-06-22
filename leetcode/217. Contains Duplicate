@@ -1,0 +1,28 @@
+from collections import Counter
+class Solution(object):
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        l=len(nums)
+        counts=Counter(nums)
+        for val,freq in counts.items():
+             if freq>=2:
+                return True
+        return False        
+
+
+from collections import Counter
+class Solution(object):
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        n=len(nums)
+        num=sorted(nums)
+        for i in range(n-1):
+            if num[i]==num[i+1]:
+                return True
+        return False     
