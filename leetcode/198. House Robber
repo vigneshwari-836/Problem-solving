@@ -1,0 +1,19 @@
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+      
+        rob_prev2 = 0  
+        rob_prev1 = 0  
+
+        for current_house_money in nums:
+            
+            current_max = max(current_house_money + rob_prev2, rob_prev1)
+            
+            
+            rob_prev2 = rob_prev1
+            rob_prev1 = current_max
+            
+        return rob_prev1
