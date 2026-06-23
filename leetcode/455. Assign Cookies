@@ -1,0 +1,21 @@
+class Solution(object):
+    def findContentChildren(self, g, s):
+        """
+        :type g: List[int]
+        :type s: List[int]
+        :rtype: int
+        """
+        g=sorted(g)
+        s=sorted(s)
+        n=len(s)
+        j,c,i=0,0,0
+        while i<n and j<len(g):
+            if g[j]<=s[i]:
+                c+=1
+                j+=1
+            i+=1   
+            
+                
+        return c
+
+        
